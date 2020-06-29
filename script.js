@@ -2,11 +2,6 @@ const button = document.getElementById('button');
 const audioElement = document.getElementById('audio');
 
 
-// Disable/Enable Button
-function toggleButton() {
-  button.disabled = !button.disabled;
-}
-
 // Passing Joke to VoiceRSS API
 function tellMe(joke) {
   VoiceRSS.speech({
@@ -24,6 +19,7 @@ function tellMe(joke) {
 async function getJokes() {
   let joke = '';
   const apiUrl = 'https://sv443.net/jokeapi/v2/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist';
+
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -43,4 +39,4 @@ async function getJokes() {
 
 // Event Listeners
 button.addEventListener('click', getJokes);
-audioElement.addEventListener('ended', toggleButton);
+audioElement.addEventListener('ended', () => button.disabled = !button.disabled);
